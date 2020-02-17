@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TD2Sarget.Android", "TD2Sar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TD2Sarget.iOS", "TD2Sarget\TD2Sarget.iOS\TD2Sarget.iOS.csproj", "{4FAF0D88-2B33-4355-87DA-8AC87D7D121C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TD2Sarget", "TD2Sarget\TD2Sarget\TD2Sarget.csproj", "{1A61F206-B667-4504-9489-A595D4542D87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TD2Sarget", "TD2Sarget\TD2Sarget\TD2Sarget.csproj", "{1A61F206-B667-4504-9489-A595D4542D87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
