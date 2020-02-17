@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <Folder Include="ModelViews\" />
+    <Folder Include="DTO\" />
     <Folder Include="Views\" />
   </ItemGroup>
 </Project>

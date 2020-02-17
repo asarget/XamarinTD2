@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Windows.Input;
 using Storm.Mvvm;
+using TD2Sarget.DTO;
 using Xamarin.Forms;
 
 namespace TD2Sarget
@@ -12,10 +14,12 @@ namespace TD2Sarget
     {
         private string _mail;
         private string _mdp;
+        private ApiClient _apiClient;
 
         public ModelViewLogin()
         {
-            LoginCommand = new Command(LoginAction);
+            LoginCommand = new Command(LoginActionAsync);
+            _apiClient = new ApiClient();
         }
 
         public string Mail
@@ -35,10 +39,16 @@ namespace TD2Sarget
             get;
         }
 
-
-        private void LoginAction()
+        private async void LoginActionAsync()
         {
-            Console.WriteLine(Mail);
+            var loginRequest = new LoginRequest {
+                Email = Mail,
+                Password = Mdp
+            };
+            var request = await _apiClient.Execute(HttpMethod.Post, "https://td-api.julienmialon.com/auth/login", loginRequest);
+
+            var response = _apiClient.ReadFromResponse<Response<LoginResult>>(request);
+
         }
     }
 }
