@@ -48,7 +48,6 @@ namespace TD2Sarget
             var request = await _apiClient.Execute(HttpMethod.Post, "https://td-api.julienmialon.com/auth/login", loginRequest);
 
             var response = _apiClient.ReadFromResponse<Response<LoginResult>>(request);
-
         }
     }
 }
