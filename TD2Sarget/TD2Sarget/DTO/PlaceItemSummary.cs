@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System.Windows.Input;
 
 namespace TD2Sarget.DTO
 {
@@ -21,5 +22,8 @@ namespace TD2Sarget.DTO
 		
 		[JsonProperty("longitude")]
 		public double Longitude { get; set; }
-	}
+
+        [JsonIgnore]
+        public ICommand DetailCommand { get; internal set; }
+    }
 }

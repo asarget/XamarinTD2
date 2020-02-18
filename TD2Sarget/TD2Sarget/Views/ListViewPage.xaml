@@ -5,12 +5,35 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:dto="clr-namespace:TD2Sarget.DTO"
+    xmlns:local="clr-namespace:TD2Sarget"
     mc:Ignorable="d"
     x:Class="TD2Sarget.Views.ListViewPage"
+    
     Title="List">
 
-    <StackLayout>
-        <Label Text="coucou"></Label>
-    </StackLayout>
+    <ContentPage.Resources>
+        <local:IdToUrl x:Key="IdToUrl" />
+    </ContentPage.Resources>
+
+    <ListView
+            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+            ItemsSource="{Binding ImageList}"
+            HasUnevenRows="True"
+            SeparatorColor="Black"
+            Footer="">
+        <ListView.ItemTemplate>
+            <DataTemplate x:DataType="dto:PlaceItemSummary">
+                <ImageCell ImageSource="{Binding ImageId, Converter={StaticResource IdToUrl}}"
+                           Text="{Binding Title}"
+                           Detail="{Binding Description}"
+                           Command="{Binding DetailCommand}"
+                           CommandParameter="{Binding .}">
+
+                </ImageCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 
 </forms:BaseContentPage>

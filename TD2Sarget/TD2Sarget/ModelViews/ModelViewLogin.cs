@@ -53,15 +53,12 @@ namespace TD2Sarget.ModelViews
             var request = await _apiClient.Execute(HttpMethod.Post, "https://td-api.julienmialon.com/auth/login", loginRequest);
 
             var response = await _apiClient.ReadFromResponse<Response<LoginResult>>(request);
-
-            Console.WriteLine("sedfghjkl");
+            
             if (response.IsSuccess)
             {
                 var accessToken = response.Data.AccessToken;
                 await SecureStorage.SetAsync("accessToken", accessToken);
-                Console.WriteLine(accessToken);
                 await _navigationService.Value.PushAsync<ListViewPage>();
-                Console.WriteLine("zezezezgrgdfrhb");
             }
         }
     }
