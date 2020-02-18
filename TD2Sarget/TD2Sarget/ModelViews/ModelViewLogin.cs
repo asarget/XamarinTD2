@@ -5,20 +5,25 @@ using System.Net.Http;
 using System.Text;
 using System.Windows.Input;
 using Storm.Mvvm;
+using Storm.Mvvm.Services;
 using TD2Sarget.DTO;
+using TD2Sarget.Views;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace TD2Sarget
+namespace TD2Sarget.ModelViews
 {
     public class ModelViewLogin : ViewModelBase
     {
         private string _mail;
         private string _mdp;
         private ApiClient _apiClient;
+        private Lazy<INavigationService> _navigationService;
 
         public ModelViewLogin()
         {
             LoginCommand = new Command(LoginActionAsync);
+            _navigationService = new Lazy<INavigationService>(() => DependencyService.Resolve<INavigationService>());
             _apiClient = new ApiClient();
         }
 
@@ -47,8 +52,17 @@ namespace TD2Sarget
             };
             var request = await _apiClient.Execute(HttpMethod.Post, "https://td-api.julienmialon.com/auth/login", loginRequest);
 
-            var response = _apiClient.ReadFromResponse<Response<LoginResult>>(request);
+            var response = await _apiClient.ReadFromResponse<Response<LoginResult>>(request);
 
+            Console.WriteLine("sedfghjkl");
+            if (response.IsSuccess)
+            {
+                var accessToken = response.Data.AccessToken;
+                await SecureStorage.SetAsync("accessToken", accessToken);
+                Console.WriteLine(accessToken);
+                await _navigationService.Value.PushAsync<ListViewPage>();
+                Console.WriteLine("zezezezgrgdfrhb");
+            }
         }
     }
 }

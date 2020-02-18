@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<forms:BaseContentPage
+    xmlns:forms="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    x:Class="TD2Sarget.Views.MainPage"
+    Title="Login">
+
+    <StackLayout>
+        <!-- Place new controls here -->
+        <Entry Text="{Binding Mail}"/>
+        <Entry Text="{Binding Mdp}"/>
+        <Button Text="GO !"
+                Command="{Binding LoginCommand}"/>
+
+    </StackLayout>
+
+</forms:BaseContentPage>

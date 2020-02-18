@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace TD2Sarget.DTO
 {
-	public class PlaceItemSummary
+	public class PlaceItem
 	{
 		[JsonProperty("id")]
 		public int Id { get; set; }
@@ -21,5 +22,8 @@ namespace TD2Sarget.DTO
 		
 		[JsonProperty("longitude")]
 		public double Longitude { get; set; }
+		
+		[JsonProperty("comments")]
+		public List<CommentItem> Comments { get; set; }
 	}
 }

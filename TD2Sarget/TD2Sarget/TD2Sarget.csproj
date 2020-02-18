@@ -18,8 +18,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ModelViews\" />
     <Folder Include="DTO\" />
-    <Folder Include="Views\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\ListViewPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
