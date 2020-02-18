@@ -26,7 +26,7 @@ namespace TD2Sarget.ModelViews
             _apiClient = new ApiClient();
 
             ImageList = new ObservableCollection<PlaceItemSummary>();
-            DetailCommand = new Command(DetailAction);
+            DetailCommand = new Command<PlaceItemSummary>(DetailAction);
         }
 
 
@@ -55,7 +55,7 @@ namespace TD2Sarget.ModelViews
 
         }
 
-        public void DetailAction()
+        public void DetailAction(PlaceItemSummary pis)
         {
 
         }
