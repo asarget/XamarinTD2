@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<forms:BaseContentPage
+    xmlns:forms="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    x:Class="TD2Sarget.Views.MainPage"
+    Title="Login">
+
+    <StackLayout>
+        <!-- Place new controls here -->
+        <StackLayout Orientation="Horizontal"
+                     IsVisible="{Binding IsRegisterVisible}">
+            <Label Text="Nom"
+                   VerticalOptions="Center"
+                   TextColor="Black"
+                   WidthRequest="100"/>
+            <Entry Text="{Binding Nom}"
+                   HorizontalOptions="FillAndExpand"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal"
+                     IsVisible="{Binding IsRegisterVisible}">
+            <Label Text="Prenom"
+                   VerticalOptions="Center"
+                   TextColor="Black"
+                   WidthRequest="100"/>
+            <Entry Text="{Binding Prenom}"
+                   HorizontalOptions="FillAndExpand"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="E-mail"
+                   VerticalOptions="Center"
+                   TextColor="Black"
+                   WidthRequest="100"/>
+            <Entry Text="{Binding Mail}"
+                   HorizontalOptions="FillAndExpand"/>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Mot de Passe"
+                   VerticalOptions="Center"
+                   TextColor="Black"
+                   WidthRequest="100"/>
+            <Entry Text="{Binding Mdp}"
+                   IsPassword="True"
+                   HorizontalOptions="FillAndExpand"/>
+        </StackLayout>
+
+        <Button Text="Se connecter"
+                Command="{Binding LoginCommand}"/>
+        
+        <Button Text="S'enregistrer"
+                Command="{Binding RegisterCommand}"/>
+
+    </StackLayout>
+
+</forms:BaseContentPage>

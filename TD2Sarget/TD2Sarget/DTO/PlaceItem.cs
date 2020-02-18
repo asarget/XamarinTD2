@@ -1,9 +1,9 @@
+using System.Collections.Generic;
 using Newtonsoft.Json;
-using System.Windows.Input;
 
 namespace TD2Sarget.DTO
 {
-	public class PlaceItemSummary
+	public class PlaceItem
 	{
 		[JsonProperty("id")]
 		public int Id { get; set; }
@@ -22,8 +22,8 @@ namespace TD2Sarget.DTO
 		
 		[JsonProperty("longitude")]
 		public double Longitude { get; set; }
-
-        [JsonIgnore]
-        public ICommand DetailCommand { get; internal set; }
-    }
+		
+		[JsonProperty("comments")]
+		public List<CommentItem> Comments { get; set; }
+	}
 }

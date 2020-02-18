@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace TD.Api.Dtos
+namespace TD2Sarget.DTO
 {
 	public class RegisterRequest
 	{
