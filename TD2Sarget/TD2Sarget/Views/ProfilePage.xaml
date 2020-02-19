@@ -6,13 +6,11 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    x:Class="TD2Sarget.Views.MainPage"
+    x:Class="TD2Sarget.Views.ProfilePage"
     Title="Login">
     
-    <StackLayout Padding="25,100,25,10">
-        <!-- Place new controls here -->
-        <StackLayout Orientation="Horizontal"
-                     IsVisible="{Binding IsRegisterVisible}">
+    <StackLayout>
+        <StackLayout Orientation="Horizontal">
             <Label Text="Nom"
                    VerticalOptions="Center"
                    TextColor="Black"
@@ -21,8 +19,7 @@
                    HorizontalOptions="FillAndExpand"/>
         </StackLayout>
 
-        <StackLayout Orientation="Horizontal"
-                     IsVisible="{Binding IsRegisterVisible}">
+        <StackLayout Orientation="Horizontal">
             <Label Text="Prenom"
                    VerticalOptions="Center"
                    TextColor="Black"
@@ -36,29 +33,12 @@
                    VerticalOptions="Center"
                    TextColor="Black"
                    WidthRequest="100"/>
-            <Entry Text="{Binding Mail}"
+            <Label Text="{Binding Mail}"
                    HorizontalOptions="FillAndExpand"/>
         </StackLayout>
 
-        <StackLayout Orientation="Horizontal">
-            <Label Text="Mot de Passe"
-                   VerticalOptions="Center"
-                   TextColor="Black"
-                   WidthRequest="100"/>
-            <Entry Text="{Binding Mdp}"
-                   IsPassword="True"
-                   HorizontalOptions="FillAndExpand"/>
-        </StackLayout>
-
-        <StackLayout Orientation="Vertical">
-            <Button Text="Se connecter"
-                    Command="{Binding LoginCommand}"/>
-
-            <Button Text="S'enregistrer"
-                    Command="{Binding RegisterCommand}"/>
-        </StackLayout>
-        
-
+        <Button Text="Modifier"
+                Command="{Binding ModifyProfileCommand}"/>
     </StackLayout>
     
 

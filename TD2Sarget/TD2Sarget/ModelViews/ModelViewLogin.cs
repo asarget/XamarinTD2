@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Text;
 using System.Windows.Input;
 using Storm.Mvvm;
@@ -23,12 +24,14 @@ namespace TD2Sarget.ModelViews
 
         private ApiClient _apiClient;
         private Lazy<INavigationService> _navigationService;
+        private Lazy<IDialogService> _dialogService;
 
         public ModelViewLogin()
         {
             LoginCommand = new Command(LoginActionAsync);
             RegisterCommand = new Command(RegisterActionAsync);
             _navigationService = new Lazy<INavigationService>(() => DependencyService.Resolve<INavigationService>());
+            _dialogService = new Lazy<IDialogService>(() => DependencyService.Resolve<IDialogService>());
             _apiClient = new ApiClient();
         }
 
@@ -80,9 +83,9 @@ namespace TD2Sarget.ModelViews
             }
             else
             {
-                if (Mail == "" || Mdp == "")
+                if (String.IsNullOrEmpty(Mail) || String.IsNullOrEmpty(Mdp))
                 {
-                    // Champs non renseignes
+                    await _dialogService.Value.DisplayAlertAsync("Erreur", $"Champ(s) non renseigné(s)", "OK");
                 }
                 else
                 {
@@ -92,19 +95,27 @@ namespace TD2Sarget.ModelViews
                         Password = Mdp
                     };
 
-                    var request = await _apiClient.Execute(HttpMethod.Post, "https://td-api.julienmialon.com/auth/login", loginRequest);
-                    var response = await _apiClient.ReadFromResponse<Response<LoginResult>>(request);
+                    try
+                    {
+                        var request = await _apiClient.Execute(HttpMethod.Post, "https://td-api.julienmialon.com/auth/login", loginRequest);
+                        var response = await _apiClient.ReadFromResponse<Response<LoginResult>>(request);
 
-                    if (response.IsSuccess)
+                        if (response.IsSuccess)
+                        {
+                            var accessToken = response.Data.AccessToken;
+                            await SecureStorage.SetAsync("accessToken", accessToken);
+                            await _navigationService.Value.PushAsync<ListViewPage>();
+                        }
+                        else
+                        {
+                            string msgErreur = response.ErrorMessage;
+                            await _dialogService.Value.DisplayAlertAsync("Erreur", msgErreur, "OK");
+                        }
+                    } catch(Exception e)
                     {
-                        var accessToken = response.Data.AccessToken;
-                        await SecureStorage.SetAsync("accessToken", accessToken);
-                        await _navigationService.Value.PushAsync<ListViewPage>();
+                        await _dialogService.Value.DisplayAlertAsync("Erreur", "Vérifiez votre connection internet", "OK");
                     }
-                    else
-                    {
-                        string msgErreur = response.ErrorMessage;
-                    }
+                    
                 }
             }
         }
@@ -116,9 +127,9 @@ namespace TD2Sarget.ModelViews
                 IsRegisterVisible = true;
             } else
             {
-                if (Mail == "" || Mdp == "" || Prenom == "" || Nom == "")
+                if (String.IsNullOrEmpty(Mail) || String.IsNullOrEmpty(Mdp) || String.IsNullOrEmpty(Prenom) || String.IsNullOrEmpty(Nom))
                 {
-                    // Champs non renseignes
+                    await _dialogService.Value.DisplayAlertAsync("Erreur", $"Champ(s) non renseigné(s)", "OK");
                 }
                 else
                 {
@@ -130,19 +141,28 @@ namespace TD2Sarget.ModelViews
                         LastName = Nom
                     };
 
-                    var request = await _apiClient.Execute(HttpMethod.Post, "https://td-api.julienmialon.com/auth/register", registerRequest);
-                    var response = await _apiClient.ReadFromResponse<Response<LoginResult>>(request);
+                    try
+                    {
+                        var request = await _apiClient.Execute(HttpMethod.Post, "https://td-api.julienmialon.com/auth/register", registerRequest);
+                        var response = await _apiClient.ReadFromResponse<Response<LoginResult>>(request);
 
-                    if (response.IsSuccess)
-                    {
-                        var accessToken = response.Data.AccessToken;
-                        await SecureStorage.SetAsync("accessToken", accessToken);
-                        await _navigationService.Value.PushAsync<ListViewPage>();
+                        if (response.IsSuccess)
+                        {
+                            var accessToken = response.Data.AccessToken;
+                            await SecureStorage.SetAsync("accessToken", accessToken);
+                            await _navigationService.Value.PushAsync<ListViewPage>();
+                        }
+                        else
+                        {
+                            string msgErreur = response.ErrorMessage;
+                            await _dialogService.Value.DisplayAlertAsync("Erreur", msgErreur, "OK");
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        string msgErreur = response.ErrorMessage;
+                        await _dialogService.Value.DisplayAlertAsync("Erreur", "Vérifiez votre connection internet", "OK");
                     }
+                    
                 }
             }
         }

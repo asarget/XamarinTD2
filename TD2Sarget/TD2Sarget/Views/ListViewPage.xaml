@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+
 <forms:BaseContentPage
     xmlns:forms="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -9,31 +10,32 @@
     xmlns:local="clr-namespace:TD2Sarget"
     mc:Ignorable="d"
     x:Class="TD2Sarget.Views.ListViewPage"
-    
     Title="List">
 
     <ContentPage.Resources>
         <local:IdToUrl x:Key="IdToUrl" />
     </ContentPage.Resources>
-
-    <ListView
-            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
-            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-            ItemsSource="{Binding ImageList}"
-            HasUnevenRows="True"
-            SeparatorColor="Black"
-            Footer="">
-        <ListView.ItemTemplate>
-            <DataTemplate x:DataType="dto:PlaceItemSummary">
-                <ImageCell ImageSource="{Binding ImageId, Converter={StaticResource IdToUrl}}"
-                           Text="{Binding Title}"
-                           Detail="{Binding Description}"
-                           Command="{Binding DetailCommand}"
-                           CommandParameter="{Binding .}">
-
-                </ImageCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+    <StackLayout>
+        <Button Text="Profil"
+                Command="{Binding ProfileCommand}"/>
+        
+        <ListView RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                  RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                  ItemsSource="{Binding ImageList}"
+                  HasUnevenRows="True"
+                  SeparatorColor="Black"
+                  Footer="">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="dto:PlaceItemSummary">
+                    <ImageCell ImageSource="{Binding ImageId, Converter={StaticResource IdToUrl}}"
+                               Text="{Binding Title}"
+                               Detail="{Binding Description}"
+                               Command="{Binding DetailCommand}"
+                               CommandParameter="{Binding .}">
+                    </ImageCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 
 </forms:BaseContentPage>
